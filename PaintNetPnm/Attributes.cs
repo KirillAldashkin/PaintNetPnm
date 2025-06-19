@@ -15,5 +15,5 @@ using System.Runtime.Versioning;
 [assembly: Guid("05cff11c-757c-4dae-85af-62fb952851ef")]
 
 [assembly: SupportedOSPlatform("windows")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.1.1.0")]
+[assembly: AssemblyFileVersion("0.1.1.0")]
