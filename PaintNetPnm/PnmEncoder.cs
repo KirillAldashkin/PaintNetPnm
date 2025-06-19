@@ -29,7 +29,7 @@ internal static class PnmEncoder
         {
             progress(y, data.Height);
             var buf = (byte*)data.GetRowPointerUnchecked(y);
-            MemoryTransformer.InPlace__B_C_A_X__To__A_B_C(buf, (nuint)data.Width);
+            MemoryTransformer.InPlace__A_B_C_D__To__B_C_A(buf, (nuint)data.Width);
             to.Write(new(buf, data.Width * 3));
         }
     }
@@ -51,7 +51,7 @@ internal static class PnmEncoder
         {
             progress(y, data.Height);
             var buf = offset + (byte*)data.GetRowPointerUnchecked(y);
-            MemoryTransformer.InPlace__A_X_X_X__To__A(buf, (nuint)data.Width);
+            MemoryTransformer.InPlace__A_B_C_D__To__A(buf, (nuint)data.Width);
             to.Write(new(buf, data.Width));
         }
     }

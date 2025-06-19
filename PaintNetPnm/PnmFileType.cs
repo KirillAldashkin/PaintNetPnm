@@ -1,8 +1,8 @@
 ﻿using PaintDotNet;
-using PaintDotNet.Direct2D1.Effects;
+using PaintDotNet.IndirectUI;
 using PaintDotNet.PropertySystem;
 using PaintDotNet.Rendering;
-using System.Drawing.Imaging.Effects;
+using PaintNetPnm.Locale;
 using System.IO;
 
 namespace PaintNetPnm;
@@ -21,7 +21,8 @@ public sealed class PnmFileType(IFileTypeHost _) : PropertyBasedFileType(
     private enum Property
     {
         Format,
-        Channel
+        Channel,
+        GitHubLink
     }
 
     protected override Document OnLoad(Stream input)
@@ -35,10 +36,27 @@ public sealed class PnmFileType(IFileTypeHost _) : PropertyBasedFileType(
 
     public override PropertyCollection OnCreateSavePropertyCollection() => new([
         StaticListChoiceProperty.CreateForEnum(Property.Format, PnmFormat.P6, false),
-        StaticListChoiceProperty.CreateForEnum(Property.Channel, Channel.R, false)
+        StaticListChoiceProperty.CreateForEnum(Property.Channel, Channel.R, false),
+        new UriProperty(Property.GitHubLink, new("https://github.com/KirillAldashkin/PaintNetPnm"))
     ], [
         new ReadOnlyBoundToValueRule<object, StaticListChoiceProperty>(Property.Channel, Property.Format, PnmFormat.P6)
     ]);
+
+    public override ControlInfo OnCreateSaveConfigUI(PropertyCollection props)
+    {
+        var info = CreateDefaultSaveConfigUI(props);
+
+        var format = info.FindControlForPropertyName(Property.Channel)!;
+        format.ControlProperties[ControlInfoPropertyNames.DisplayName]!.Value = Strings.SaveDialog_Channel;
+        format.SetValueDisplayName(Channel.R, Strings.SaveDialog_Channel_R);
+        format.SetValueDisplayName(Channel.G, Strings.SaveDialog_Channel_G);
+        format.SetValueDisplayName(Channel.B, Strings.SaveDialog_Channel_B);
+        format.SetValueDisplayName(Channel.A, Strings.SaveDialog_Channel_A);
+
+        info.SetPropertyControlValue(Property.Format, ControlInfoPropertyNames.DisplayName, Strings.SaveDialog_Format);
+        info.SetPropertyControlValue(Property.GitHubLink, ControlInfoPropertyNames.DisplayName, Strings.SaveDialog_GitHubLink);
+        return info;
+    }
 
     protected override void OnSaveT(Document input, Stream output, PropertyBasedSaveConfigToken token, Surface scratchSurface, ProgressEventHandler progress)
     {

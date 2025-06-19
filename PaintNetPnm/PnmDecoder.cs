@@ -1,5 +1,4 @@
 ﻿using PaintDotNet;
-using System.Buffers.Text;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
@@ -25,7 +24,7 @@ internal static class PnmDecoder
         return false;
     }
 
-    private static bool TryReadSizeMaxValue(Stream from, out int width, out int height, out byte max)
+    private static bool TryReadHeader(Stream from, out int width, out int height, out byte max)
     {
         if (!from.TryParseAscii((byte)' ', out width))
         {
@@ -43,7 +42,7 @@ internal static class PnmDecoder
 
     private static unsafe bool TryReadP5(Stream from, [NotNullWhen(true)] out Surface? result, [NotNullWhen(false)] out string? error)
     {
-        if(!TryReadSizeMaxValue(from, out var width, out var height, out var max))
+        if(!TryReadHeader(from, out var width, out var height, out var max))
             return InvalidHeader(out result, out error);
 
         bool dispose = true;
@@ -72,7 +71,7 @@ internal static class PnmDecoder
 
     private static unsafe bool TryReadP6(Stream from, [NotNullWhen(true)] out Surface? result, [NotNullWhen(false)] out string? error)
     {
-        if (!TryReadSizeMaxValue(from, out var width, out var height, out var max))
+        if (!TryReadHeader(from, out var width, out var height, out var max))
             return InvalidHeader(out result, out error);
 
         bool dispose = true;

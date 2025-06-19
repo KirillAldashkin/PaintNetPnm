@@ -33,13 +33,13 @@ internal unsafe static class MemoryTransformer
         } while (size != 0);
     }
 
-    public static void InPlace__A_X_X_X__To__A(byte* data, nuint size)
+    public static void InPlace__A_B_C_D__To__A(byte* data, nuint size)
     {
         for (nuint i = 1; i < size; ++i)
             data[i] = data[4 * i];
     }
 
-    public static void InPlace__B_C_A_X__To__A_B_C(byte* data, nuint size)
+    public static void InPlace__A_B_C_D__To__B_C_A(byte* data, nuint size)
     {
         for (nuint i = 0; i < size; i++)
         {
