@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Common/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="PaintNetPnm/PaintNetPnm.csproj" />
   <Project Path="Playground/Playground.csproj" />
 </Solution>

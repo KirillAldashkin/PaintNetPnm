@@ -7,8 +7,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\PaintNetPnm\PaintNetPnm.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 		<Reference Include="PaintDotNet.Base">
 			<HintPath>C:\Program Files\paint.net\PaintDotNet.Base.dll</HintPath>
 		</Reference>
