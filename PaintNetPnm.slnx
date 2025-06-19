@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PaintNetPnm/PaintNetPnm.csproj" />
+  <Project Path="Playground/Playground.csproj" />
+</Solution>
